@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import './index.css';
-import App from './App';
+import Login from './pages/login';
 import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
 
@@ -17,7 +17,7 @@ root.render(
   <React.StrictMode>
     <Router>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <Login />
         <ToastContainer />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

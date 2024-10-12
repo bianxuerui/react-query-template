@@ -1,7 +1,3 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import request from './utils/request';
 import { useGetList } from './hooks/api';
 
 function App() {
@@ -9,6 +5,7 @@ function App() {
     page: 1,
     pageSize: 5
   });
+
 
   if (isLoading) {
     return (
