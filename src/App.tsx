@@ -1,20 +1,15 @@
-import { useGetList } from './hooks/api';
+import CustomList from './components/List';
 
 function App() {
-  const { data: user, isLoading } = useGetList({
-    page: 1,
-    pageSize: 5
-  });
 
-
-  if (isLoading) {
-    return (
-      <>加载中...</>
-    );
-  }
   return (
     <div>
-      {JSON.stringify(user)}
+      <CustomList />
+      <CustomList />
+      <CustomList />
+      <CustomList />
+      <CustomList />
+      <CustomList />
     </div>
   );
 }

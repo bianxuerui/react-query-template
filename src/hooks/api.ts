@@ -1,4 +1,4 @@
-import { useFetch } from "../utils/reactQuery"
+import { useFetch, useLoadMore } from "../utils/reactQuery"
 
 export const useGetList = (params: any) => {
     const context = useFetch<any>(
@@ -24,3 +24,8 @@ export const useLogin = (params: any) => {
     )
     return { ...context, data: context };
 }
+
+export const useLoadMoreProductList = (params: any) => {
+    return useLoadMore('http://127.0.0.1:8080/product/list', params);
+}
+

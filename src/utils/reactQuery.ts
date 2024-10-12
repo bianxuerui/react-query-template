@@ -10,6 +10,15 @@ import request from './request';
 
 type QueryKeyT = [string, object | undefined, string];
 
+interface GetInfinitePagesInterface<T> {
+    data: T[];
+    total: number;
+    page: number;
+    pageSize: number;
+    totalItems: number;
+    totalPages: number;
+}
+
 export const fetcher = <T>({
     queryKey,
     pageParam,
@@ -27,6 +36,23 @@ export const fetcher = <T>({
         throw new Error(`不支持的 HTTP 方法: ${method}`);
     }
 };
+
+export const useLoadMore = <T>(url: string | null, params?: object) => {
+    const context = useInfiniteQuery<
+        GetInfinitePagesInterface<T>,
+        Error,
+        GetInfinitePagesInterface<T>,
+        QueryKeyT
+    >(
+        [url!, params, 'get'],
+        ({ queryKey, pageParam, meta }) => fetcher({ queryKey, pageParam, meta }),
+        {
+            getPreviousPageParam: (firstPage) => firstPage ? firstPage.page - 1 : false,
+            getNextPageParam: (lastPage) => lastPage.page < lastPage.totalPages ? lastPage.page + 1 : false,
+        }
+    );
+    return context;
+}
 
 export const useFetch = <T>(
     url: string | null,
