@@ -1,17 +1,24 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useLoadMoreProductList } from "../hooks/api";
 
 const CustomList = () => {
-    const { data: list, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useLoadMoreProductList({ page: 1, pageSize: 5 });
+    const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useLoadMoreProductList({ page: 1, pageSize: 5 });
 
     return (
         <>
             {
-                list?.pages?.map((page: any) => (
-                    <Fragment key={page.nextId || 0}>
-                        {page.map((item: any) => <div key={item.id}>{item.name}</div>)}
+                data?.pages?.map((page: any) => (
+                    <Fragment key={page.id || 0}>
+                        {page?.data?.map((item: any) => <div key={item.id}>{item.name}</div>)}
                     </Fragment>
                 ))
+            }
+            {
+                hasNextPage && <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
+                    {
+                        isFetchingNextPage ? '已全部加载' : '加载更多'
+                    }
+                </button>
             }
         </>
     )

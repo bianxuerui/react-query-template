@@ -5,11 +5,6 @@ function App() {
   return (
     <div>
       <CustomList />
-      <CustomList />
-      <CustomList />
-      <CustomList />
-      <CustomList />
-      <CustomList />
     </div>
   );
 }
